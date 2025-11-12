@@ -1,0 +1,12 @@
+{
+  "redis": {
+    "ips": ["redis.sub.bancasqa.com:6379"],
+    "password": "0s2xm245YFfr"
+  },
+  "monitor": {
+    "requests": 3000,
+    "intervalMs": 100,
+    "grafanaPort": 8080,
+    "metricsPort": 2112
+  }
+}
