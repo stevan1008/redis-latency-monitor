@@ -26,7 +26,6 @@ var (
 		Help:    "Latencia de peticiones Redis (ms)",
 		Buckets: prometheus.LinearBuckets(0, 1, 50),
 	})
-
 	requestCounter = prometheus.NewCounter(prometheus.CounterOpts{
 		Name: "redis_requests_total",
 		Help: "Número total de peticiones realizadas a Redis",
@@ -39,14 +38,12 @@ func init() {
 }
 
 func main() {
-	// Redis ya está inicializado por el import anónimo de bi-bel3-redis-go
 	cacheClient := cache.NewCache()
 	if cacheClient == nil {
 		log.Fatal("No se pudo inicializar la instancia de caché (Redis)")
 	}
 	fmt.Println("Redis inicializado correctamente (modo Bi)")
 
-	// Parámetros de monitoreo tomados del configmap
 	reqs := configjson.GetInt("monitor.requests")
 	if reqs == 0 {
 		reqs = 1000
@@ -55,60 +52,19 @@ func main() {
 	if delay == 0 {
 		delay = 500 * time.Millisecond
 	}
-	grafanaPort := fmt.Sprintf(":%d", configjson.GetInt("monitor.grafanaPort"))
-	if grafanaPort == ":0" {
-		grafanaPort = ":8080"
-	}
-	metricsPort := fmt.Sprintf(":%d", configjson.GetInt("monitor.metricsPort"))
-	if metricsPort == ":0" {
-		metricsPort = ":9090"
+	port := fmt.Sprintf(":%d", configjson.GetInt("monitor.port"))
+	if port == ":0" {
+		port = ":8080"
 	}
 
-	// Servidores
-	go startMetricsServer(metricsPort)
-	go startDashboardServer(grafanaPort)
+	// Un solo servidor HTTP
+	mux := http.NewServeMux()
 
-	fmt.Println("Iniciando medición de latencia...")
-	for i := 0; i < reqs; i++ {
-		start := time.Now()
-		_, err := cacheClient.Get("tribalConnection")
-		elapsed := time.Since(start)
-		ms := float64(elapsed.Microseconds()) / 1000.0
+	// Endpoint de métricas Prometheus
+	mux.Handle("/metrics", promhttp.Handler())
 
-		if err != nil && err.Error() != "redis: nil" {
-			log.Printf("Error en request #%d: %v", i, err)
-			continue
-		}
-
-		mu.Lock()
-		latency = append(latency, ms)
-		mu.Unlock()
-
-		latencyHistogram.Observe(ms)
-		requestCounter.Inc()
-
-		if (i+1)%100 == 0 {
-			fmt.Printf("[%d/%d] ⏱️ Latencia actual: %.2f ms\n", i+1, reqs, ms)
-		}
-
-		time.Sleep(delay)
-	}
-
-	fmt.Println("\nFinalizado.")
-	fmt.Println("Dashboard: http://localhost" + grafanaPort)
-	fmt.Println("Métricas Prometheus: http://localhost" + metricsPort + "/metrics")
-
-	select {}
-}
-
-func startMetricsServer(port string) {
-	http.Handle("/metrics", promhttp.Handler())
-	fmt.Println("Servidor de métricas Prometheus en", port)
-	log.Fatal(http.ListenAndServe(port, nil))
-}
-
-func startDashboardServer(port string) {
-	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
+	// Endpoint del dashboard (HTML con go-echarts)
+	mux.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		line := charts.NewLine()
 		line.SetGlobalOptions(
 			charts.WithTitleOpts(opts.Title{
@@ -130,8 +86,39 @@ func startDashboardServer(port string) {
 		line.Render(w)
 	})
 
-	fmt.Println("🖥️ Dashboard corriendo en", port)
-	log.Fatal(http.ListenAndServe(port, nil))
+	// Lanzar el servidor
+	go func() {
+		log.Printf("Servidor HTTP escuchando en %s (paths: / y /metrics)\n", port)
+		log.Fatal(http.ListenAndServe(port, mux))
+	}()
+
+	// Loop de medición
+	for i := 0; i < reqs; i++ {
+		start := time.Now()
+		_, err := cacheClient.Get("tribalConnection")
+		elapsed := time.Since(start)
+		ms := float64(elapsed.Microseconds()) / 1000.0
+
+		if err != nil && err.Error() != "redis: nil" {
+			log.Printf("Error en request #%d: %v", i, err)
+			continue
+		}
+
+		mu.Lock()
+		latency = append(latency, ms)
+		mu.Unlock()
+
+		latencyHistogram.Observe(ms)
+		requestCounter.Inc()
+
+		if (i+1)%100 == 0 {
+			fmt.Printf("[%d/%d] Latencia actual: %.2f ms\n", i+1, reqs, ms)
+		}
+
+		time.Sleep(delay)
+	}
+
+	select {}
 }
 
 func generateXAxis(n int) []int {
