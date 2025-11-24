@@ -5,7 +5,7 @@ go 1.23.0
 require (
 	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-cache-go.git v1.0.1-0.20250819214552-c40bfa1d863e
 	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-configuration-go.git v0.1.1-0.20251016170103-a92a8d41ede1
-	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20250819221007-c704aa667fa3
+	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251124150508-4c357a35c1f0
 	github.com/go-echarts/go-echarts/v2 v2.6.7
 	github.com/prometheus/client_golang v1.23.2
 )
