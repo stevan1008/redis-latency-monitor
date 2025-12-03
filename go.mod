@@ -3,9 +3,9 @@ module github.com/stevan1008/redis-latency-moneythor
 go 1.23.0
 
 require (
-	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-cache-go.git v1.0.1-0.20250819214552-c40bfa1d863e
+	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-cache-go.git v1.0.1-0.20251203161911-926aeb19b157
 	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-configuration-go.git v0.1.1-0.20251016170103-a92a8d41ede1
-	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251124150508-4c357a35c1f0
+	devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251203163432-ad8d2c4e34c8
 	github.com/go-echarts/go-echarts/v2 v2.6.7
 	github.com/prometheus/client_golang v1.23.2
 )
@@ -18,7 +18,6 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
-	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.1 // indirect
@@ -28,6 +27,7 @@ require (
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.66.1 // indirect
 	github.com/prometheus/procfs v0.16.1 // indirect
+	github.com/redis/go-redis/v9 v9.17.2 // indirect
 	github.com/spf13/afero v1.1.2 // indirect
 	github.com/spf13/cast v1.3.0 // indirect
 	github.com/spf13/jwalterweatherman v1.0.0 // indirect
