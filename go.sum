@@ -18,8 +18,8 @@ devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-errors-go.git v1.1.1
 devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-errors-go.git v1.1.1-0.20250228233055-c5e2b457b0be/go.mod h1:bSubCwxQZHosWP8Br2bPT4VA+VSfjJErxNMP07ENqH8=
 devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-log-go.git v1.1.1-0.20250228233419-46a5cbc28a36 h1:8DCs8rgcNXqxnAoozcJZFsUHwLBou8rJVbGr/5YsXoE=
 devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-log-go.git v1.1.1-0.20250228233419-46a5cbc28a36/go.mod h1:3i9zxXP9ZCdqx3bn6oRQFcJZcB2vi10AghJAhYYIFzc=
-devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251203163432-ad8d2c4e34c8 h1:DJWTsWOkUogHjJPWQqe0vGEIyVtH/+gDu6WoWY+heXQ=
-devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251203163432-ad8d2c4e34c8/go.mod h1:C6gnsWGo6rojs+AnkJFO2nfAhmsMtEcX2BEjLWrJV1k=
+devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251203165839-41bd3fd0bf2b h1:ukV/XEIBnItfVAZj79D6F8xAMtOR0zAjugGMJnIa7f0=
+devops.bi.com.gt/BISistemas/Bi-en-linea-App-CI/_git/bi-bel3-redis-go.git v1.1.1-0.20251203165839-41bd3fd0bf2b/go.mod h1:C6gnsWGo6rojs+AnkJFO2nfAhmsMtEcX2BEjLWrJV1k=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
